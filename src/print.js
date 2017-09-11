@@ -1,4 +1,3 @@
 export default function printMe() {
-  console.log('I get called from print.js!');
-  console.log('I add webapck-dev-server');
+  console.log('Updating print.js...1')
 }
