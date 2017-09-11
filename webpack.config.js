@@ -1,7 +1,8 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const webpack = require('webpack');
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+// const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/index.js'
@@ -24,10 +25,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Hot Module Replacement'
-    }),
-    new webpack.HotModuleReplacementPlugin()
+    // new CleanWebpackPlugin(['dist']),
+    new UglifyJSPlugin()
+    // new HtmlWebpackPlugin({
+    //   title: 'Tree Shaking'
+    // })
   ]
 }
