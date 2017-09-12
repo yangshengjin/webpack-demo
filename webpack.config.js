@@ -6,16 +6,17 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 module.exports = {
   entry: {
-    index: './src/index.js',
+    main: './src/index.js',
+    vendor: ['lodash']
   },
-  devtool: 'inline-source-map',
-  devServer: {
-    contentBase: './dist',
-    hot: true
-  },
+  // devtool: 'inline-source-map',
+  // devServer: {
+  //   contentBase: './dist',
+  //   hot: true
+  // },
   output: {
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    // filename: '[name].bundle.js',
+    filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, 'dist')
   },
   module: {
@@ -29,10 +30,14 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
-      title: 'Code Splitting'
+      title: 'Caching'
     }),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   name: 'common' // 指定公共 bundle 的名称
-    // })
+    new webpack.HashedModuleIdsPlugin(),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'runtime'
+    })
   ]
 }
